@@ -1,0 +1,12 @@
+c = Curl::Easy.new
+c.url = 'http://localhost:9292/api/v1/mail_messages'
+c.headers['Accept'] = 'application/json'
+c.headers['Accept-Language'] = 'en'
+c.headers['X-API-TOKEN'] = 'someSecretApiToken'
+c.http_post(
+  Curl::PostField.file('message[emails][]', 'mail_1@m.com'),
+  Curl::PostField.file('message[emails][]', 'mail_2@m.com'),
+  Curl::PostField.file('message[type]', 'register_user_confirmation_pin'),
+  Curl::PostField.file('message[content][pin]', '123-321-456'),
+)
+
