@@ -33,24 +33,25 @@ module Messaging
       end
 
       private
-        def apply_api_auth_headers
-          client.headers['Accept'] = 'application/json'
-          client.headers['Accept-Language'] = content[:locale] || 'en'
-          client.headers['X-API-TOKEN'] = Messaging::Client.api_token
-        end
 
-        def confirmation_pin
-          return unless pin =  @content[:pin]
-          fields = []
-          apply_api_auth_headers
-          emails.each do |email|
-            fields << Curl::PostField.content("message[emails][]", email.to_s)
-          end
-          fields << Curl::PostField.content("message[type]", type.to_s)
-          fields << Curl::PostField.content("message[content][pin]", pin.to_s)
-          client.http_post(*fields)
-          Logging.logger.error "[#{Messaging::Client.logging_label}] #{client.response_code} #{client.body_str}"
+      def apply_api_auth_headers
+        client.headers['Accept'] = 'application/json'
+        client.headers['Accept-Language'] = content[:locale] || 'en'
+        client.headers['X-API-TOKEN'] = Messaging::Client.api_token
+      end
+
+      def confirmation_pin
+        return unless pin =  @content[:pin]
+        fields = []
+        apply_api_auth_headers
+        emails.each do |email|
+          fields << Curl::PostField.content("message[emails][]", email.to_s)
         end
+        fields << Curl::PostField.content("message[type]", type.to_s)
+        fields << Curl::PostField.content("message[content][pin]", pin.to_s)
+        client.http_post(*fields)
+        Logging.logger.error "[#{Messaging::Client.logging_label}] #{client.response_code} #{client.body_str}"
+      end
     end
   end
 end
