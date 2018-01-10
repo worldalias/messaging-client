@@ -10,3 +10,20 @@ c.http_post(
   Curl::PostField.file('message[content][pin]', '123-321-456'),
 )
 
+
+require 'twilio-ruby'
+
+TEST:
+account_sid = "ACCOUNT_SID"
+auth_token = "AUTH_TOKEN"
+from = "+15005550006"
+
+begin
+    @client = Twilio::REST::Client.new account_sid, auth_token
+    message = @client.messages.create(body: "Hello from Ruby", to: "+380664396419", from: from)
+rescue Twilio::REST::TwilioError => e
+    puts e.message
+end
+
+
+

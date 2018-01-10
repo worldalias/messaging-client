@@ -1,0 +1,45 @@
+# This is the default configuration file. Enabling and disabling is configured
+# in separate files. This file adds all other parameters apart from Enabled.
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - db/migrate/*.rb
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 150
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 160
+
+IndentationWidth:
+  Enabled: true
+
+Rails:
+  Enabled: false
+
+GlobalVars:
+  AllowedVariables:
+    - redis
+

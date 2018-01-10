@@ -1,5 +1,6 @@
-require "messaging/client/version"
-require "messaging/client/mail"
+require 'messaging/client/version'
+require 'messaging/client/mail'
+require 'messaging/client/sms'
 
 module Messaging
   module Client
