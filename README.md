@@ -18,6 +18,44 @@ Or install it yourself as:
 
 ## Usage
 
+### Configuration in Sinatra APP
+
+**Add to your initializers file messaging_client.rb with content**
+```
+messaging_api_settings ||= Settings.services.detect { |s| s.name == 'messaging-api' }
+
+Messaging::Client.configure do |config|
+  config.logging_label = 'MESSAGING'
+  config.url = messaging_api_settings.url
+  config.api_token = messaging_api_settings.token
+end
+```
+
+### Send MAIL message example
+```
+Messaging::Client::Mail.new(
+  type: 'confirmation_pin',
+  emails: ['test@gmail.com'],
+  content: {
+    pin: '1234567',
+    locale: I18n.locale
+  }
+).send_mail
+```
+
+
+### Send SMS message example
+```
+Messaging::Client::Sms.new(
+  type: 'confirmation_pin',
+  phones: ['+380665554433'],
+  content: {
+    pin: '1234567',
+    locale: I18n.locale
+  }
+).send_sms
+```
+
 ### Test
 ```
 cp .ruby-version.example .ruby-version && cp .ruby-gemset.example .ruby-gemset && cd ../messaging-cient && bundle && rspec

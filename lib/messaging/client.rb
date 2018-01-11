@@ -1,20 +1,17 @@
 require 'messaging/client/version'
+require 'messaging/client/config'
 require 'messaging/client/mail'
 require 'messaging/client/sms'
 
 module Messaging
   module Client
     class << self
-      def logging_label
-        @logging_label ||= 'MESSAGING'
+      def configure(&_block)
+        yield config
       end
 
-      def url
-        @url ||= 'http://localhost:9293'
-      end
-
-      def api_token
-        @api_token ||= 'someSecretApiToken'
+      def config
+        @config ||= Config.new
       end
     end
   end
